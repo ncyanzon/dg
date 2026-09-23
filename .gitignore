@@ -1,2 +1,6 @@
 data/produccion_energia.csv
 **/.ipynb_checkpoints/
+
+# Datos originales: quedan solo en la máquina local.
+# La fuente y el link de descarga están en data/raw/readme.md
+data/raw/*.csv
