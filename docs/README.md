@@ -11,7 +11,7 @@ Diccionario de datos del maestro de pozos: una fila por columna del archivo de o
 | Licencia de la fuente | CC-BY-4.0 (uso libre citando la fuente) |
 | Qué representa cada fila | Un **pozo + formación productiva** (`idpozo`). Un pozo físico (`sigla` normalizada) puede tener varias filas |
 | Basado en | `notebooks/01_pozos_perfilado.ipynb` (hallazgos H-xx) |
-| Versión | **1.4**, aprobada (ver historial) |
+| Versión | **1.5**, aprobada (ver historial) |
 
 ### Historial de versiones
 
@@ -22,6 +22,7 @@ Diccionario de datos del maestro de pozos: una fila por columna del archivo de o
 | 1.2 | 30/09/2026 | Se agregan `valor_min` y `valor_max` (límites duros); `regla_validez` pasa a tener las reglas de contexto; se corrige la regla de `cota` y se agrega H-24 | La regla anterior de `cota` (-100 a 6.000) salía del dato observado y aceptaba dos valores imposibles. Las reglas tienen que salir del negocio y de la física, no del dato |
 | 1.3 | 01/10/2026 | `sigla`, `area`, `empresa`, `yacimiento` y `formacion` suman H-25 (espacios sobrantes); `sigla` suma H-26 y se identifica al pozo físico por la sigla normalizada (78.299) | Al investigar la decisión D-8 aparecieron espacios sobrantes y siglas escritas de más de una forma |
 | 1.4 | 01/10/2026 | `cod_area` y `cod_yacimiento` pasan a ser la referencia; `area` y `yacimiento`, etiquetas descriptivas. `yacimiento` suma H-27 ('POZOS SIN YACIMIENTO' es un valor válido) | Decisión D-9: el código distingue partes que el nombre mezcla (área revertida, provincia, concesión) |
+| 1.5 | 01/10/2026 | `provincia` se describe como jurisdicción ('Estado Nacional' es válido); `geojson` y `geom` documentan la corrección de coordenadas; `tipo_recurso` y `sub_tipo_recurso` documentan la marca del pozo inconsistente | Decisiones D-10, D-11 y D-12 |
 
 ### Por qué se construyó
 
