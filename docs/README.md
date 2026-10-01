@@ -9,9 +9,9 @@ Diccionario de datos del maestro de pozos: una fila por columna del archivo de o
 | Archivo que describe | `data/raw/capitulo-iv-pozos.csv` (85.611 filas, 26 columnas, 34.133.626 bytes) |
 | Versión de la fuente | Publicada por la Secretaría de Energía, última modificación 08/07/2026 |
 | Licencia de la fuente | CC-BY-4.0 (uso libre citando la fuente) |
-| Qué representa cada fila | Un **pozo + formación productiva** (`idpozo`). Un pozo físico (`sigla`) puede tener varias filas |
+| Qué representa cada fila | Un **pozo + formación productiva** (`idpozo`). Un pozo físico (`sigla` normalizada) puede tener varias filas |
 | Basado en | `notebooks/01_pozos_perfilado.ipynb` (hallazgos H-xx) |
-| Versión | **1.2**, aprobada (ver historial) |
+| Versión | **1.3**, aprobada (ver historial) |
 
 ### Historial de versiones
 
@@ -20,6 +20,7 @@ Diccionario de datos del maestro de pozos: una fila por columna del archivo de o
 | 1.0 | 30/09/2026 | Primera versión, revisada y aprobada | Línea base del diccionario |
 | 1.1 | 30/09/2026 | Se corrige la definición de `idpozo` (pozo + formación, no pozo físico) y de `sigla` (identifica al pozo físico); se agrega H-23 | Al investigar la decisión D-3 se verificó que la formación cambia en el 97,8% de los grupos con sigla repetida |
 | 1.2 | 30/09/2026 | Se agregan `valor_min` y `valor_max` (límites duros); `regla_validez` pasa a tener las reglas de contexto; se corrige la regla de `cota` y se agrega H-24 | La regla anterior de `cota` (-100 a 6.000) salía del dato observado y aceptaba dos valores imposibles. Las reglas tienen que salir del negocio y de la física, no del dato |
+| 1.3 | 01/10/2026 | `sigla`, `area`, `empresa`, `yacimiento` y `formacion` suman H-25 (espacios sobrantes); `sigla` suma H-26 y se identifica al pozo físico por la sigla normalizada (78.299) | Al investigar la decisión D-8 aparecieron espacios sobrantes y siglas escritas de más de una forma |
 
 ### Por qué se construyó
 
@@ -74,3 +75,5 @@ Registrados en `notebooks/01_pozos_perfilado.ipynb` (sección 9, con su evidenci
 | H-22 | Consistencia | Pozos en yacimientos cuyo nombre tiene más de un código (88 nombres) | 17.478 |
 | H-23 | Unicidad | Misma sigla y misma formación: posible carga duplicada (159 siglas) | 353 |
 | H-24 | Validez | Cota mayor que la altura máxima de su provincia (5.543 m en Neuquén) | 1 |
+| H-25 | Consistencia | Textos con espacios sobrantes (al principio, al final o dobles). Esconden parte de H-17 y H-22 | 5.904 |
+| H-26 | Consistencia | Sigla escrita de más de una forma (por ejemplo NQ y Nq; 37 siglas) | 85 |
