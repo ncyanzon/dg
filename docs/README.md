@@ -11,7 +11,7 @@ Diccionario de datos del maestro de pozos: una fila por columna del archivo de o
 | Licencia de la fuente | CC-BY-4.0 (uso libre citando la fuente) |
 | Qué representa cada fila | Un **pozo + formación productiva** (`idpozo`). Un pozo físico (`sigla` normalizada) puede tener varias filas |
 | Basado en | `notebooks/01_pozos_perfilado.ipynb` (hallazgos H-xx) |
-| Versión | **1.3**, aprobada (ver historial) |
+| Versión | **1.4**, aprobada (ver historial) |
 
 ### Historial de versiones
 
@@ -21,6 +21,7 @@ Diccionario de datos del maestro de pozos: una fila por columna del archivo de o
 | 1.1 | 30/09/2026 | Se corrige la definición de `idpozo` (pozo + formación, no pozo físico) y de `sigla` (identifica al pozo físico); se agrega H-23 | Al investigar la decisión D-3 se verificó que la formación cambia en el 97,8% de los grupos con sigla repetida |
 | 1.2 | 30/09/2026 | Se agregan `valor_min` y `valor_max` (límites duros); `regla_validez` pasa a tener las reglas de contexto; se corrige la regla de `cota` y se agrega H-24 | La regla anterior de `cota` (-100 a 6.000) salía del dato observado y aceptaba dos valores imposibles. Las reglas tienen que salir del negocio y de la física, no del dato |
 | 1.3 | 01/10/2026 | `sigla`, `area`, `empresa`, `yacimiento` y `formacion` suman H-25 (espacios sobrantes); `sigla` suma H-26 y se identifica al pozo físico por la sigla normalizada (78.299) | Al investigar la decisión D-8 aparecieron espacios sobrantes y siglas escritas de más de una forma |
+| 1.4 | 01/10/2026 | `cod_area` y `cod_yacimiento` pasan a ser la referencia; `area` y `yacimiento`, etiquetas descriptivas. `yacimiento` suma H-27 ('POZOS SIN YACIMIENTO' es un valor válido) | Decisión D-9: el código distingue partes que el nombre mezcla (área revertida, provincia, concesión) |
 
 ### Por qué se construyó
 
@@ -77,3 +78,4 @@ Registrados en `notebooks/01_pozos_perfilado.ipynb` (sección 9, con su evidenci
 | H-24 | Validez | Cota mayor que la altura máxima de su provincia (5.543 m en Neuquén) | 1 |
 | H-25 | Consistencia | Textos con espacios sobrantes (al principio, al final o dobles). Esconden parte de H-17 y H-22 | 5.904 |
 | H-26 | Consistencia | Sigla escrita de más de una forma (por ejemplo NQ y Nq; 37 siglas) | 85 |
+| H-27 | Consistencia | Yacimiento genérico 'POZOS SIN YACIMIENTO' (34 códigos): no es un yacimiento | 513 |
