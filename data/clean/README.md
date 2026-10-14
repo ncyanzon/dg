@@ -49,3 +49,48 @@ El detalle completo, regla por regla y con las filas afectadas, está en la secc
 - **Para contar pozos físicos** use `sigla_normalizada`, no `idpozo`.
 - **Para mapas** tenga en cuenta `ubicacion_compartida`, porque hay varios pozos en un mismo punto.
 - **Salvedades** (a confirmar con la fuente): las unidades de `cota` y `profundidad`, la hipótesis de la coma decimal en los valores marcados como sospechosos, y el criterio de jurisdicción "Estado Nacional". Ver las conclusiones del notebook 02.
+
+## produccion_2024-2026_limpio.parquet
+
+Producción mensual por pozo, de enero de 2024 a agosto de 2026: una fila por **pozo + mes** (`idpozo` + `anio` + `mes`).
+Une los tres archivos anuales de producción en una sola tabla.
+
+| Dato | Valor |
+| --- | --- |
+| Generado por | `notebooks/04_produccion_limpieza.ipynb` (diagnóstico en `notebooks/03_produccion_perfilado.ipynb`) |
+| Archivos de origen | `data/raw/produccin-de-pozos-de-gas-y-petrleo-2024.csv`, `-2025.csv` y `-2026.csv` (ver `data/raw/README.md`) |
+| Huella SHA-256 del origen 2024 | `2c3e2f6ec26840266c92aea509acf7677daf146d52e58bbd794a976b96e29cba` |
+| Huella SHA-256 del origen 2025 | `53d7831455a50c73a8f66176238fa7af3599d5695071e8982ecd53b2022580e2` |
+| Huella SHA-256 del origen 2026 | `c63017b48aa0723904a9a0db41a360790c99c5dd05fb83ff363dd0e18acfbc97` |
+| Referencia | `capitulo-iv-pozos_limpio.csv` (se consulta para dos marcas; sus columnas no se incorporan) |
+| Huella SHA-256 de este archivo | `d36d226e79a810492639b807956b0443536bde649fd35d5fa024dd5f2e91b790` |
+| Fecha de generación | 14/10/2026 (pandas 3.0.6, pyarrow 24.0.0) |
+| Formato | Parquet con compresión zstd, 11,7 MB. Se lee con `pd.read_parquet`; no se abre con Excel |
+| Filas | 2.628.689 (las mismas que los tres orígenes juntos: no se eliminó ninguna) |
+| Columnas | 28: las 22 leídas del origen (dos renombradas), más `archivo_origen`, `fecha_mes` y 4 marcas |
+| Totales | Petróleo 122.566.029 m³ · gas 138.232.359 miles de m³ (idénticos a los del origen) |
+
+Las filas están ordenadas por `idpozo` y `fecha_mes`.
+
+### Columnas nuevas o renombradas
+
+| Columna | Tipo | Qué indica | Filas | Regla |
+| --- | --- | --- | ---: | --- |
+| `prod_pet_m3` | decimal | Petróleo del mes, en m³ (antes `prod_pet`; mismo valor) | todas | R-21 |
+| `prod_gas_miles_m3` | decimal | Gas del mes, en miles de m³ (antes `prod_gas`; mismo valor) | todas | R-21 |
+| `archivo_origen` | texto | Archivo raw del que viene la fila (linaje) | todas | — |
+| `fecha_mes` | fecha | Primer día del mes informado (por ejemplo, 2025-03-01) | todas | R-22 |
+| `tef_fuera_de_rango` | sí/no | `tef` negativo o mayor que los días del mes; el valor se conserva | 2.830 | R-23 |
+| `produccion_negativa` | sí/no | Petróleo o gas negativo (ajustes de la empresa); el valor se conserva | 9 | R-24 |
+| `fuera_del_maestro` | sí/no | El `idpozo` no está en el maestro de pozos limpio (en su mayoría, pozos nuevos) | 1.270 | R-25 |
+| `recurso_inconsistente` | sí/no | El pozo cambia de tipo de recurso en el período o difiere del maestro | 32 | R-26 |
+
+### Antes de usarlo
+
+- **Petróleo y gas no se suman:** tienen unidades distintas.
+- **Vaca Muerta no convencional:** `formprod == "VMUT"` y `tipo_de_recurso == "NO CONVENCIONAL"` (hay pozos verticales viejos de Vaca Muerta marcados CONVENCIONAL, y es un dato real).
+- **Empresa:** cada mes figura con la empresa que lo operó; muchos pozos cambiaron de operador en 2024–2025 (venta de áreas).
+- **`tef`:** si se usa, excluir las filas con `tef_fuera_de_rango`.
+- **Salvedad:** el archivo 2026 se descargó el 23/09/2026; los de 2024 y 2025, el 13/10/2026.
+
+El detalle regla por regla está en la sección 5 del notebook 04.
