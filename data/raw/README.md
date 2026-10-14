@@ -15,9 +15,19 @@ el link de la fuente y guardalos en esta carpeta con estos nombres.
 - Fecha de descarga: 23/09/2026
 
 ## Archivos
-- capitulo-iv-pozos.csv
-- produccin-de-pozos-de-gas-y-petrleo-2026.csv
-- produccin-de-pozos-de-gas-y-petrleo-no-convencional.csv
+| Archivo | Descargado | Tamaño | Uso |
+| --- | --- | --- | --- |
+| capitulo-iv-pozos.csv | 23/09/2026 | 34,1 MB | Maestro de pozos (notebooks 01 y 02) |
+| produccin-de-pozos-de-gas-y-petrleo-2024.csv | 13/10/2026 | 319,9 MB | Producción 2024 (notebook 03 en adelante) |
+| produccin-de-pozos-de-gas-y-petrleo-2025.csv | 13/10/2026 | 327,9 MB | Producción 2025 (notebook 03 en adelante) |
+| produccin-de-pozos-de-gas-y-petrleo-2026.csv | 23/09/2026 | 211,9 MB | Producción 2026 (notebook 03 en adelante) |
+| produccin-de-pozos-de-gas-y-petrleo-no-convencional.csv | 23/09/2026 | 147,1 MB | No se usa: sus filas 2024–2026 ya están en los archivos anuales |
+
+Período de análisis de la producción: 2024–2026.
+
+Salvedad: el archivo 2026 se descargó antes que los de 2024 y 2025. Si la
+fuente corrigió algún mes de 2026 después del 23/09/2026, esa corrección
+no está incluida.
 
 ## Archivos de práctica
 Usados para entrenar la carga y la limpieza de datos.
